@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: myapp-argo-application
+  namespace: argocd
+spec:
+  project: default
+  source: 
+    repoURL:  https://github.com/amenur/k8s/argocd
+    targetRevision: HEAD
+    path: main
+  destination:
+    # Point to the internal service of the localhost cluster
+    server: https://kubernetes.default.svc
+    namespace: myapp
+  
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+    automated:
+      # Forces overwritte the actual state for the Git repository manifests. Roll-back manual changes
+      selfHeal: true
+      # Forces clean all resources if a service.yaml is deleted (delete all resources referents to this service.yaml)
+      prune: true
+      
+    
