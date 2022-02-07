@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: prom-oper
-  namespace: argocd
+  namespace: monitor
 spec:
   project: prom-oper
 
@@ -10,3 +10,17 @@ spec:
     repoURL: https://prometheus-community.github.io/helm-charts
     targetRevision: "31.0.0"
     chart: kube-prometheus-stack
+
+  destination:
+    # Point to the internal service of the localhost cluster
+    server: https://kubernetes.default.svc
+    namespace: myapp
+  
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+    automated:
+      # Forces overwritte the actual state for the Git repository manifests. Roll-back manual changes
+      selfHeal: true
+      # Forces clean all resources if a service.yaml is deleted (delete all resources referents to this service.yaml)
+      prune: true
