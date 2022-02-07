@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source: 
-    repoURL:  https://github.com/amenur/k8s/argocd
+    repoURL:  https://github.com/amenur/k8s/tree/main/argocd
     targetRevision: HEAD
     path: main
   destination:
@@ -22,5 +22,5 @@ spec:
       selfHeal: true
       # Forces clean all resources if a service.yaml is deleted (delete all resources referents to this service.yaml)
       prune: true
-      
+
     
