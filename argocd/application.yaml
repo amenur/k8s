@@ -1,14 +1,14 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: myapp-argo-application
+  name: nginx
   namespace: argocd
 spec:
   project: default
   source: 
-    repoURL:  https://github.com/amenur/k8s/tree/main/argocd
+    repoURL:  https://github.com/amenur/k8s.git
     targetRevision: HEAD
-    path: main
+    path: argocd
   destination:
     # Point to the internal service of the localhost cluster
     server: https://kubernetes.default.svc
